@@ -24,26 +24,70 @@ function MsgController($scope) {
 (function () {
     'use strict';
 
-    angular.module('DIApp', [])
-        .controller('DIController', DIController);
+    angular.module('LunchCheck', [])
+        .controller('LunchCheckController', LunchCheckController);
 
-    function DIController($scope,
-        $filter,
-        $injector) {
-        $scope.name = "Yaakov";
 
+  
+
+    
+    function LunchCheckController($scope,
+            $filter,
+        $injector)
+    {
+        LunchCheckController.$inject['$scope'];
+
+
+        $scope.items = "";
         $scope.upper = function () {
             var upCase = $filter('uppercase');
             $scope.name = upCase($scope.name);
         };
+        
+        console.log($injector.annotate(LunchCheckController));
 
-        console.log($injector.annotate(DIController));
+        $scope.checkMessage = function () {
+           
+            var arr = $scope.items.split(',');
+            let newArray = arr.filter(function (e) {
+                console.log(e.replaceAll(" ", ""));
+
+                return (e.replaceAll(" ","").replaceAll("'","") != "");
+            });
+            console.log(newArray);
+            console.log("new array count" + newArray.length);
+  
+            
+
+
+
+
+            console.log(arr);
+            $scope.message = arr.length;
+            
+            if (newArray.length == 0 ) {
+                $scope.message = "please enter data first";
+                $scope.class = "red";
+            } else {
+                if (newArray.length > 3) {
+                    $scope.message =newArray.length + " is too much!";
+                    $scope.class = "green";
+                } else {
+                    $scope.message = "Enjoy";
+                    $scope.class = "green";
+                }
+               
+            }
+           
+            
+        };
+
+
+
+
+
     }
 
-    function AnnonateMe(name, job, blah) {
-        return "Blah!";
-    }
-    console.log(AnnonateMe());
-    console.log(DIController.toString());
+  
 
 })();

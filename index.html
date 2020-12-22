@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="en" ng-app='DIApp'>
+<html lang="en" ng-app='LunchCheck'>
 <head>
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
@@ -8,27 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
 
+
     <style>
         .message {
             font-size: 1.3em;
             font-weight: bold;
         }
+        .green {
+            color: green;
+            border: 2px solid green;
+        }
+        .red {
+            color: red;
+            border: 2px solid red;
+        }
+        .empty {
+            color:  purple;
+        }
     </style>
 </head>
 <body>
-    <div class="container" ng-controller="DIController">
+    <div class="container" ng-controller="LunchCheckController">
         <h1>Lunch Checker</h1>
 
         <div class="form-group">
             <input id="lunch-menu" type="text"
-                   placeholder="list comma separated dishes you usually have for lunch"
-                   class="form-control">
+                   placeholder="list comma separated dishes you usually have for lunch - EMPTY ENTRIES WILL BE IGNORED"
+                   class="form-control"
+                   ng-model="items">
         </div>
         <div class="form-group">
-            <button class="btn btn-default">Check If Too Much</button>
+            <button class="btn btn-default"  ng-click="checkMessage()">Check If Too Much</button>
         </div>
         <div class="form-group message">
             <!-- Your message can go here. -->
+            
+            {{items}}<br />
+            <hr />
+            <h4 class="{{class}}">{{message}}</h4>
         </div>
     </div>
 
